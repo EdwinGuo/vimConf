@@ -31,6 +31,7 @@ Plugin 'jnurmine/Zenburn'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'epeli/slimux'
+Plugin 'Chiel92/vim-autoformat'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -55,19 +56,19 @@ nnoremap <space> za
 let g:SimpylFold_docstring_preview=1
 
 au BufNewFile,BufRead *.py
-    \ set tabstop=4 |
-    \ set softtabstop=4 |
-    \ set shiftwidth=4 |
-    \ set textwidth=79 |
-    \ set expandtab |
-    \ set autoindent |
-    \ set fileformat=unix
+            \ set tabstop=4 |
+            \ set softtabstop=4 |
+            \ set shiftwidth=4 |
+            \ set textwidth=79 |
+            \ set expandtab |
+            \ set autoindent |
+            \ set fileformat=unix
 
 
 au BufNewFile,BufRead *.js, *.html, *.css
-    \ set tabstop=2 |
-    \ set softtabstop=2 |
-    \ set shiftwidth=2
+            \ set tabstop=2 |
+            \ set softtabstop=2 |
+            \ set shiftwidth=2
 
 highlight BadWhitespace ctermbg=red guibg=darkred
 au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
@@ -94,9 +95,9 @@ nnoremap <leader>gh :YcmCompleter GoToDeclaration<CR>
 
 if has('gui_running')
     set background=dark
-        colorscheme solarized
-    else
-        colorscheme zenburn
+    colorscheme solarized
+else
+    colorscheme zenburn
 endif
 
 call togglebg#map("<C-W>")
@@ -137,7 +138,7 @@ function! s:swap_up()
     call s:swap_lines(n, n - 1)
     exec n - 1
 endfunction
-                               
+
 function! s:swap_down()
     let n = line('.')
     if n == line('$')
@@ -154,4 +155,8 @@ noremap <silent> <C-S-d> :call <SID>swap_down()<CR>
 " change the hightlight color for bracket
 :set showmatch
 hi MatchParen cterm=bold ctermbg=blue ctermfg=167
+
+au BufWrite * :Autoformat
+" To enable code(omni) completion, add this line to your vimrc ($HOME/vimrc):
+autocmd FileType python set omnifunc=pythoncomplete#Complete
 
